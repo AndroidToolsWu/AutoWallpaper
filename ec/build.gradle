@@ -1,0 +1,55 @@
+apply plugin: 'com.android.library'
+//butterknife视图绑定框架
+apply plugin: 'com.jakewharton.butterknife'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 26
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation project(':core')
+    //CommandTitlebar
+    implementation 'com.wuhenzhizao:titlebar:1.1.3'
+    //butterknife绑定视图框架,每个module里都要依赖，因为需要进行代码生成
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    //状态栏颜色改变
+    compile 'com.jaeger.statusbarutil:library:1.5.1'
+    //gson
+    implementation 'com.google.code.gson:gson:2.8.5'
+    //图片加载
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+    //SmartRefreshLayout
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-28'
+    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-28'
+    //没有使用特殊Header，可以不加这行
+    //RxPermissions
+    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
+    //图片拖拽框架
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+    //bugly
+    //compile 'com.tencent.bugly:crashreport:latest.release' 升级SDK已经集成crash上报功能，已经集成Bugly的用户需要注释掉原来Bugly的jcenter库
+    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    //其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
+    compile 'com.tencent.bugly:nativecrashreport:latest.release'
+    //其中latest.release指代最新版本号，也可以指定明确的版本号，例如2.2.0
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient android:angle="135"
+        android:type="linear"
+        android:startColor="#15eded"
+        android:endColor="#029cf5"
+        />
+
+    <!--
+        蓝绿： 89f7fe 66a6ff
+        红橙： 15eded 029cf5
+        深蓝浅蓝：#000046 #1cb5e0
+        蓝色： #2980b9 #6dd5fa  #ffffff
+
+    -->
+</shape>

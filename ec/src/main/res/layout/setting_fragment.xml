@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+        android:id="@+id/discover_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:statusBarMode="light"
+        app:fillStatusBar="true"
+        app:centerType="textView"
+        app:centerText="设置"
+        app:centerTextColor="@android:color/white"
+        app:centerTextSize="@dimen/sp_18"
+        />
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#ccc"
+        android:layout_marginTop="@dimen/dp_40"
+        />
+
+    <include layout="@layout/setting_fragment_switch_item"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#ccc"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#ccc"
+        android:layout_marginTop="@dimen/dp_40"
+        />
+
+    <com.example.ec.ui.my_menu_item.MyOneListItem
+        android:id="@+id/setting_time_list_item"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#ccc"/>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#ccc"
+        android:layout_marginTop="@dimen/dp_40"
+        />
+
+    <com.example.ec.ui.my_menu_item.MyOneListItem
+        android:id="@+id/report_question_list_item"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#ccc"/>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#ccc"
+        android:layout_marginTop="@dimen/dp_40"
+        />
+
+    <com.example.ec.ui.my_menu_item.MyOneListItem
+        android:id="@+id/check_updates_list_item"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#ccc"/>
+
+
+</LinearLayout>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fadeScrollbars="true"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+            android:id="@+id/shop_cart_title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:statusBarMode="light"
+            app:fillStatusBar="true"
+            app:leftType="textView"
+            app:leftTextSize="@dimen/sp_18"
+            app:leftText="取消"
+            app:leftTextColor="@android:color/white"
+            android:paddingLeft="@dimen/dp_10"
+            app:centerType="textView"
+            app:centerText="我的壁纸"
+            app:centerTextColor="@android:color/white"
+            app:centerTextSize="@dimen/sp_18"
+            app:rightType="textView"
+            android:paddingRight="@dimen/dp_10"
+            app:rightText="删除"
+            app:rightTextSize="@dimen/sp_18"
+            app:rightTextColor="@android:color/white"
+            />
+
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/shop_cart_title_bar"
+
+            >
+            <!--app:srlEnableHeaderTranslationContent="false"-->
+            <!--app:srlEnableLoadMore="true"-->
+            <!--android:focusable="true"-->
+            <!--android:focusableInTouchMode="true"-->
+            <!--android:descendantFocusability="blocksDescendants"-->
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/my_gallery_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_10"
+                    />
+
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
+
+    </RelativeLayout>
+
+</ScrollView>

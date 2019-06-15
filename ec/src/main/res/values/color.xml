@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="navigation_bar_inactive_black">#555555</color>
+    <color name="index_navigation_bar_background">#8df0f7</color>   <!--#8df0f7 -->
+    <color name="shop_cart_list_text_color">#fa709a</color>   <!--#ff6e97 -->
+    <color name="discover_navigation_bar_background">#8df0f7</color>    <!--#ddccaa -->
+    <color name="my_navigation_bar_background">#8df0f7</color>  <!--#9966cc -->
+    <color name="status_bar_color">#4cb4e7</color>
+    <color name="shop_cart_sum_part_background">#fee140</color>
+
+    <!-- #ddccaa焦黄色   #aaccdd湖蓝色  #116699深海蓝   #8df0f7天蓝色  #9966cc暗蓝光紫  #f01b2d红粉色
+         #ff6e97粉色     #4cb4e7蓝色    #9c2e89紫色     #ffc09f肉色    #e03636红色    #f7f7f7  f0f0f0  #fffafa
+         #fafafa 和 #afafaf 是不一样的其中前两个字母af a为主色f为副色，#fafafa比#afafaf的灰色要浅很多
+         f-a 9-0 是颜色越来越重的
+
+         蓝色   #33ccff  #70cdff  #80b3ff  #6bcbff #4dd8ff   #19e4ff  bff1ff  39cce6
+      -->
+
+
+</resources>
