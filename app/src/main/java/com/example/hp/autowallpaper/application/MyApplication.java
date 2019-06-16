@@ -6,6 +6,8 @@ import com.example.core.app.GlobalContainer;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.crashreport.CrashReport;
 
+import cn.jpush.android.api.JPushInterface;
+
 
 /**
  * Created by HP on 2019/3/18.
@@ -30,5 +32,10 @@ public class MyApplication extends Application {
 
         //集成腾讯bugly 注意：如果您之前使用过Bugly SDK，请将以下这句注释掉。
         //CrashReport.initCrashReport(getApplicationContext(), "52c8dd518f", true);
+
+        //极光推送
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
+
     }
 }

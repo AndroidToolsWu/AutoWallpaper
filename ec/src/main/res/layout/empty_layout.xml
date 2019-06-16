@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    >
+
+    <ImageView
+        android:layout_width="@dimen/dp_108"
+        android:layout_height="@dimen/dp_108"
+        android:src="@drawable/none_data_icon"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="请检查网络连接后重试"
+        android:textColor="#555"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <Button
+        android:id="@+id/reload_btn"
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="@dimen/dp_40"
+        android:text="重试"
+        android:textColor="#fff"
+        android:textSize="@dimen/sp_14"
+        android:background="@drawable/reload_btn_background"
+        android:layout_marginTop="@dimen/dp_60"
+        android:layout_gravity="center_horizontal"
+        />
+
+
+</LinearLayout>

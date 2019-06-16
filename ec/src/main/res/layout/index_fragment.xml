@@ -45,5 +45,15 @@
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 
+    <ViewStub
+        android:id="@+id/view_stub"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_150"
+        android:layout="@layout/empty_layout"
+        />
+
+
 </LinearLayout>
+
 </ScrollView>

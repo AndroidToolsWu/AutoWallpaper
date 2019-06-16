@@ -101,13 +101,8 @@ public class SettingFragment extends BaseFragment {
             @Override
             public void onListItemClick(View view) {
                 Beta.checkUpgrade();
-                UpgradeInfo upgradeInfo=Beta.getUpgradeInfo();
-                if (upgradeInfo==null){
-                    Toast.makeText(getActivity(),"已是最新版本",Toast.LENGTH_SHORT).show();
-                }
-
             }
-        },1);
+        },0);
 
     }
 

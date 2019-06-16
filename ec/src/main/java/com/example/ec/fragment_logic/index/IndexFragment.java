@@ -1,6 +1,7 @@
 package com.example.ec.fragment_logic.index;
 
 import android.annotation.SuppressLint;
+import android.app.admin.SystemUpdateInfo;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -10,7 +11,11 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewStub;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +23,7 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.core.net.RestClient;
 import com.example.core.net.callback.IError;
+import com.example.core.net.callback.IFailure;
 import com.example.core.net.callback.ISuccess;
 import com.example.ec.R;
 
@@ -39,8 +45,11 @@ import com.wuhenzhizao.titlebar.widget.CommonTitleBar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.Inflater;
 
 import butterknife.BindView;
+import butterknife.BindViews;
+import butterknife.OnClick;
 
 /**
  * Created by HP on 2019/3/18.
@@ -54,6 +63,8 @@ public class IndexFragment extends BaseFragment {
     RecyclerView myRecyclerView;
     @BindView(R2.id.refresh_layout)
     SmartRefreshLayout refreshLayout;
+    @BindView(R2.id.view_stub)
+    ViewStub viewStub;
 
     private MyHandler myHandler=new MyHandler();
     private IndexRecyclerViewAdapter recyclerViewAdapter;
@@ -68,6 +79,7 @@ public class IndexFragment extends BaseFragment {
     private int imgStartPosition=0;
     private int imgCurrentPosition=0;
 
+
     @Override
     public Object setLayout() {
         return R.layout.index_fragment;
@@ -76,10 +88,23 @@ public class IndexFragment extends BaseFragment {
     @Override
     public void onBindView(Bundle savedInstanceState, View rootView) {
         System.out.println("onCreateView");
+        initViewStub();
         settingTitleBarStyle();
         initImgStartPosition();
         initData(imgStartPosition);
         initRefreshLayout();
+    }
+
+    private void initViewStub(){
+        LinearLayout linearLayout= (LinearLayout) viewStub.inflate();
+        Button reloadBtn=linearLayout.findViewById(R.id.reload_btn);
+        reloadBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initImgStartPosition();
+                initData(imgStartPosition);
+            }
+        });
     }
 
     private void settingTitleBarStyle(){
@@ -111,8 +136,10 @@ public class IndexFragment extends BaseFragment {
                     @Override
                     public void onSuccess(String response) {
                         System.out.println(response);
-                        Gson gson=new Gson();
                         if (response!=null){
+                            myRecyclerView.setVisibility(View.VISIBLE);
+                            viewStub.setVisibility(View.GONE);
+                            Gson gson=new Gson();
                             ResultBean result=gson.fromJson(response,ResultBean.class);
                             ResourceBean resourceBean=result.getRes();
                             List<ImageDataBean> imageDataBeans=resourceBean.getVertical();
@@ -124,13 +151,18 @@ public class IndexFragment extends BaseFragment {
                     }
 
                 })
+                .failure(new IFailure() {
+                    @Override
+                    public void onFailure(){
+                        myRecyclerView.setVisibility(View.GONE);
+                        viewStub.setVisibility(View.VISIBLE);
+                    }
+                })
                 //牢记数据请求的时候，用get获取数据，用post请求表单，如果请求错了则会405
                 .error(new IError() {
                     @Override
                     public void onError(int code, String msg) {
                         Toast.makeText(getActivity(),"加载太快，受不了了...",Toast.LENGTH_SHORT).show();
-                        System.out.println("errorCode:"+code);
-
                     }
                 })
                 .build()
@@ -148,6 +180,7 @@ public class IndexFragment extends BaseFragment {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 recyclerViewAdapter.setEnableLoadMore(false);
+
                 initImgStartPosition();
                 initData(imgStartPosition);
                 refreshLayout.finishRefresh(1000);
@@ -199,10 +232,16 @@ public class IndexFragment extends BaseFragment {
                     }
 
                 })
+                .failure(new IFailure() {
+                    @Override
+                    public void onFailure() {
+                        Toast.makeText(getActivity(),"请检查网络状况或重试",Toast.LENGTH_SHORT).show();
+                    }
+                })
                 .error(new IError() {
                     @Override
                     public void onError(int code, String msg) {
-                        Toast.makeText(getActivity(),"请检查网络状况或重试",Toast.LENGTH_SHORT).show();
+
                     }
                 })
                 .build()
@@ -226,6 +265,7 @@ public class IndexFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
+
 
         //配置recycler
         myRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(

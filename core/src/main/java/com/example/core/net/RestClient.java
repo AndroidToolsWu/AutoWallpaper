@@ -34,7 +34,7 @@ public class RestClient {
     //下边三个是关于文件下载的
     private final String DOWNLOAD_DIR;
     private final String EXTENSION;
-    private final  String NAME;
+    private final String NAME;
 
     private final ISuccess SUCCESS;
     private final IFailure FAILURE;
