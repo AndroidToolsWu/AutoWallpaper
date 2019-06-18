@@ -19,6 +19,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.example.core.proxy_activity.ProxyActivity;
+import com.example.core.util.acitvity.ActivityUtils;
 import com.example.core.util.dimen.DimenUtil;
 import com.example.core.util.img.BitmapAndDrawableUtil;
 import com.example.core.util.storage.AppPreference;
@@ -64,6 +65,7 @@ public class MyGalleryWallpaperActivity extends ProxyActivity {
         super.onCreate(savedInstanceState);
         StatusBarUtil.setTranslucent(this,0);
         setContentView(R.layout.my_gallery_wallpaper_activity);
+        ActivityUtils.getInstance().addActivity(this);
         ButterKnife.bind(this);
         //获取图片数据
         Intent intent=getIntent();
@@ -74,6 +76,11 @@ public class MyGalleryWallpaperActivity extends ProxyActivity {
         initSettingWallpaperBtn();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityUtils.getInstance().removeActivity(this);
+    }
 
     @SuppressLint("NewApi")
     private void settingWallpaper() {

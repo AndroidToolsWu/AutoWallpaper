@@ -17,6 +17,7 @@ import com.example.core.util.storage.AppPreference;
 import com.example.core.util.storage.ScannerImgUtil;
 import com.example.ec.R;
 import com.example.ec.R2;
+import com.example.ec.activity.ReportQuestionActivity;
 import com.example.ec.fragment_logic.BaseFragment;
 import com.example.ec.ui.my_menu_item.MyOneListItem;
 import com.example.ec.ui.timer.AlarmManageUtil;
@@ -95,6 +96,12 @@ public class SettingFragment extends BaseFragment {
         },0);
 
         myReportQuestionListItem.initDefaultMode(R.drawable.report_question_icon,"问题反馈");
+        myReportQuestionListItem.setOnListItemClickListener(new MyOneListItem.OnListItemClickListener() {
+            @Override
+            public void onListItemClick(View view) {
+                startActivity(new Intent(getActivity(), ReportQuestionActivity.class));
+            }
+        },0);
 
         myCheckUpdateListItem.initDefaultMode(R.drawable.check_update_icon,"版本更新");
         myCheckUpdateListItem.setOnListItemClickListener(new MyOneListItem.OnListItemClickListener() {

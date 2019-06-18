@@ -44,6 +44,8 @@
         <activity android:name="com.example.ec.activity.MyGalleryWallpaperActivity"
             android:launchMode="singleTask"/>
 
+        <activity android:name="com.example.ec.activity.ReportQuestionActivity"/>
+
         <!--更改图片的service-->
         <service android:name="com.example.ec.fragment_logic.setting.ChangeImgService"/>
 

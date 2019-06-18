@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
+import com.example.core.util.acitvity.ActivityUtils;
 import com.example.ec.R;
 import com.example.ec.fragment_logic.setting.SettingFragment;
 import com.example.ec.fragment_logic.index.IndexFragment;
@@ -37,7 +38,7 @@ import io.reactivex.functions.Consumer;
 public class MainActivity extends AppCompatActivity implements BottomNavigationBar.OnTabSelectedListener{
 
     private BottomNavigationBar mainNavigationBar=null;
-    private int lastSelectedItem=0;
+    private static int lastSelectedItem=0;
     private FragmentTransaction transaction;
     private FragmentManager fragmentManager;
     private Fragment indexFragment,myGalleryFragment,settingFragment;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ActivityUtils.getInstance().addActivity(this);
         System.out.println("onCreate");
 
 
@@ -72,36 +74,26 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
 
 
 
+    }
 
-//        if (!permissions.isGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
-//                !permissions.isGranted(Manifest.permission.READ_EXTERNAL_STORAGE) ||
-//                !permissions.isGranted(Manifest.permission.REQUEST_INSTALL_PACKAGES)
-//                ){
-//            requestPermissions();
-//        }
-
-//        if (ContextCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)
-//                != PackageManager.PERMISSION_GRANTED
-//                    ||
-//             ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE)
-//                != PackageManager.PERMISSION_GRANTED
-//                    ||
-//             ContextCompat.checkSelfPermission(this,Manifest.permission.REQUEST_INSTALL_PACKAGES)
-//                 != PackageManager.PERMISSION_GRANTED
-//                ){
-//            requestPermissions();
-//        }
-
-
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityUtils.getInstance().removeActivity(this);
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode==KeyEvent.KEYCODE_BACK){
             if (isExit){
-                this.finish();
+                ActivityUtils.getInstance().finishAllActivity();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        System.gc();
+                        System.exit(0);
+                    }
+                },500);
             }else {
                 isExit=true;
                 Toast.makeText(MainActivity.this,"再按一次退出app",Toast.LENGTH_LONG).show();
@@ -219,6 +211,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationB
     }
 
     private void controlFragmentVisibility(int lastSelectedItem){
+        fragmentManager=getSupportFragmentManager();
         //每次commit前都要开启一次
         transaction=fragmentManager.beginTransaction();
         hideFragment(transaction);

@@ -96,7 +96,9 @@ public class IndexFragment extends BaseFragment {
     }
 
     private void initViewStub(){
+        //viewstub,用于没有网络时重新刷新列表
         LinearLayout linearLayout= (LinearLayout) viewStub.inflate();
+        viewStub.setVisibility(View.GONE);
         Button reloadBtn=linearLayout.findViewById(R.id.reload_btn);
         reloadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,14 +199,14 @@ public class IndexFragment extends BaseFragment {
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+
                 //在请求更多数据的时候，添加好间隔的位置数量
                 imgCurrentPosition+=30;
                 List<ImageDataBean> beanList=addData(imgCurrentPosition);
-                refreshLayout.finishLoadMore();
                 if (beanList.size()>0){
                     recyclerViewAdapter.addData(beanList);
                 }
-
+                refreshLayout.finishLoadMore(500);
             }
         });
     }
@@ -227,7 +229,6 @@ public class IndexFragment extends BaseFragment {
                             ResultBean result=gson.fromJson(response,ResultBean.class);
                             ResourceBean resourceBean=result.getRes();
                             tempList=resourceBean.getVertical();
-
                         }
                     }
 
@@ -241,7 +242,7 @@ public class IndexFragment extends BaseFragment {
                 .error(new IError() {
                     @Override
                     public void onError(int code, String msg) {
-
+                        Toast.makeText(getActivity(),"请检查网络状况或重试",Toast.LENGTH_SHORT).show();
                     }
                 })
                 .build()

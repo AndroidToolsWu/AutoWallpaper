@@ -1,17 +1,21 @@
 package com.example.ec.fragment_logic.my_gallery;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -77,7 +81,7 @@ public class MyGalleryFragment extends BaseFragment{
     private List<String> localImgUrlList=new ArrayList<>();
     private SparseArray sparseArray=new SparseArray();
     private SparseBooleanArray checkStates=new SparseBooleanArray();
-
+    private LocalBroadcastManager broadcastManager;
 
 
     @Override
@@ -93,8 +97,41 @@ public class MyGalleryFragment extends BaseFragment{
             initGalleryRecyclerView();
             initRefreshLayout();
         }
+        //注册广播
+        registerReceiver();
 
     }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        broadcastManager.unregisterReceiver(refreshBroadcastReceiver);
+    }
+
+    //用于刷新图片列表
+    private void registerReceiver(){
+        broadcastManager= LocalBroadcastManager.getInstance(getContext());
+        IntentFilter intentFilter=new IntentFilter();
+        intentFilter.addAction("fresh");
+        broadcastManager.registerReceiver(refreshBroadcastReceiver,intentFilter);
+    }
+    //用于刷新图片列表
+    private BroadcastReceiver refreshBroadcastReceiver=new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println("myGalleryFresh");
+                    localImgUrlList=ScannerImgUtil.scannerStorageImg(getContext());
+                    recyclerAdapter.setNewData(localImgUrlList);
+                    recyclerAdapter.notifyDataSetChanged();
+                }
+            },0);
+        }
+
+    };
+
 
     private void initRefreshLayout() {
         //设置 Header 为 贝塞尔雷达 样式
@@ -256,6 +293,10 @@ public class MyGalleryFragment extends BaseFragment{
         });
 
     }
+
+
+
+
 
 
 }

@@ -7,8 +7,8 @@ android {
         minSdkVersion 19
         targetSdkVersion 26
         //versionCode只能是整数，11代表1.1版本  20代表2.0
-        versionCode 1
-        versionName "自动壁纸1.0测试版"
+        versionCode 11
+        versionName "自动壁纸1.1测试版"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {

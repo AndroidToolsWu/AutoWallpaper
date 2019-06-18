@@ -87,6 +87,9 @@ public class DownloadImageService implements Runnable {
                 appDir.mkdirs();
                 //将储存到的文件路径保存下来
                 AppPreference.addCustomAppProfile("localImgUrl",appDir.getAbsolutePath());
+            }else {
+                //老用户的文件夹没有删也会走这个存储位置的方法，不然老用户无法扫描到图片
+                AppPreference.addCustomAppProfile("localImgUrl",appDir.getAbsolutePath());
             }
             //文件名
             String fileName=System.currentTimeMillis()+".jpg";

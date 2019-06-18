@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,6 +22,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.core.proxy_activity.ProxyActivity;
+import com.example.core.util.acitvity.ActivityUtils;
 import com.example.core.util.img.BitmapAndDrawableUtil;
 import com.example.core.util.img.DownloadImageService;
 import com.example.core.util.img.ImageDownloadCallBack;
@@ -69,12 +71,17 @@ public class ViewWallpaperActivity extends ProxyActivity{
         super.onCreate(savedInstanceState);
         StatusBarUtil.setTranslucent(this,0);
         setContentView(R.layout.view_wallpaper_activity);
+        ActivityUtils.getInstance().addActivity(this);
         ButterKnife.bind(this);
         initCollectionButton();
         initBackground();
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityUtils.getInstance().removeActivity(this);
+    }
 
     private void initBackground() {
         Intent intent=getIntent();
@@ -100,20 +107,23 @@ public class ViewWallpaperActivity extends ProxyActivity{
         DownloadImageService service=new DownloadImageService(this, url, new ImageDownloadCallBack() {
             @Override
             public void onDownloadSuccess(File file) {
+                Message message=Message.obtain();
+                message.what=DOWNLOAD_SUCCESS_MSG;
+                myHandler.sendMessageDelayed(message,200);
             }
 
             @Override
             public void onDownloadSuccess(Bitmap bitmap) {
                 Message message=Message.obtain();
                 message.what=DOWNLOAD_SUCCESS_MSG;
-                myHandler.sendMessageDelayed(message,500);
+                myHandler.sendMessageDelayed(message,200);
             }
 
             @Override
             public void onDownloadFailed() {
                 Message message=Message.obtain();
                 message.what=DOWNLOAD_ERROR_MSG;
-                myHandler.sendMessageDelayed(message,500);
+                myHandler.sendMessageDelayed(message,200);
             }
         });
         //启动图片下载线程
@@ -133,6 +143,10 @@ public class ViewWallpaperActivity extends ProxyActivity{
                 collectionBtn.setText("已收藏");
                 collectionBtn.setClickable(false);
 
+                //收藏成功后利用broadcastReceiver刷新我的壁纸的列表
+                Intent intent=new Intent("fresh");
+                LocalBroadcastManager.getInstance(ViewWallpaperActivity.this).sendBroadcast(intent);
+                System.out.println("ViewWallpaperActivityFresh");
                 Toast.makeText(ViewWallpaperActivity.this,"收藏成功",Toast.LENGTH_SHORT).show();
             }
 

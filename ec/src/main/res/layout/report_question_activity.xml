@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fafafa"
+
+    >
+
+    <com.wuhenzhizao.titlebar.widget.CommonTitleBar
+        android:id="@+id/report_question_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:statusBarMode="light"
+        app:fillStatusBar="true"
+        app:leftType="imageButton"
+        app:leftDrawable="@drawable/comm_titlebar_back_normal"
+        app:centerType="textView"
+        app:centerText="问题反馈"
+        app:centerTextColor="@android:color/white"
+        app:centerTextSize="18sp"
+        />
+
+
+    <EditText
+        android:id="@+id/contact_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:hint="QQ号/微信号/手机号/无"
+        android:inputType="text"
+        android:textSize="@dimen/dp_14"
+        android:textColorHint="#ccc"
+        android:textColor="#555"
+        android:layout_marginTop="@dimen/dp_20"
+        android:textCursorDrawable="@drawable/bg_edit_text"
+        android:background="@drawable/edit_background"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:padding="@dimen/dp_10"
+
+        />
+
+    <EditText
+        android:id="@+id/question_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="这里输入问题..."
+        android:lines="10"
+        android:textSize="@dimen/dp_14"
+        android:textColorHint="#ccc"
+        android:textColor="#555"
+        android:gravity="top|left"
+        android:layout_marginTop="@dimen/dp_20"
+        android:textCursorDrawable="@drawable/bg_edit_text"
+        android:background="@drawable/edit_background"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:padding="@dimen/dp_10"
+
+        />
+
+    <Button
+        android:id="@+id/submit_question_btn"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:text="提交反馈"
+        android:textColor="#fff"
+        android:background="@drawable/report_btn_background"
+        android:layout_marginRight="@dimen/dp_14"
+        android:layout_marginLeft="@dimen/dp_14"
+        android:layout_marginTop="@dimen/dp_80"
+        />
+
+
+</LinearLayout>
